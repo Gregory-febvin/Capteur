@@ -1,4 +1,5 @@
 #include <Wire.h>
+#include "rgb_lcd.h"
 #include <math.h>
 
 #define ADC_REF 5 //reference voltage of ADC is 5v.If the Vcc switch on the seeeduino
@@ -9,10 +10,12 @@ const int R0 = 100000;
 #define TEMPERATURE_POTAR A1
 const int TEMPERATURE_SENSOR = A0;
 
+rgb_lcd lcd;
 
 void setup()
 {
     Serial1.begin(9600);
+    lcd.begin(16, 2);
 }
 
 void loop()
@@ -37,6 +40,18 @@ void loop()
     Serial.println(temp_cons_value);
     Serial.print("Capteur Température: ");
     Serial.println(temperature_value);
+
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Cons:");
+    lcd.print(temp_cons_value, 1);
+    lcd.print((char)223);
+    lcd.print("C");
+    lcd.setCursor(0, 1);
+    lcd.print("Temp:");
+    lcd.print(temperature_value);
+    lcd.print((char)223);
+    lcd.print("C");
     
     delay(1000);
 }
