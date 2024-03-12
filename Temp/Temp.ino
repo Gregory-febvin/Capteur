@@ -43,15 +43,26 @@ void loop()
 
     lcd.clear();
     lcd.setCursor(0, 0);
+    lcd.print("Temp:");
+    lcd.print(temperature_value, 2); 
+    lcd.print((char)223);
+    lcd.print("C");
+    lcd.setCursor(0, 1);
     lcd.print("Cons:");
     lcd.print(temp_cons_value, 1);
     lcd.print((char)223);
     lcd.print("C");
-    lcd.setCursor(0, 1);
-    lcd.print("Temp:");
-    lcd.print(temperature_value);
-    lcd.print((char)223);
-    lcd.print("C");
+
+    if(temp_cons_value >= temperature_value - 0.5 && temp_cons_value <= temperature_value + 0.5){
+        Serial.println("Vert");
+        lcd.setRGB(0, 255, 0); // Green color
+    } else if (temperature_value < temp_cons_value) {
+        Serial.println("Bleu");
+        lcd.setRGB(0, 0, 255); // Blue color
+    } else if (temperature_value > temp_cons_value) {
+        Serial.println("Red");
+        lcd.setRGB(255, 0, 0); // Red color
+    }
     
     delay(1000);
 }
