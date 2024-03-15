@@ -63,6 +63,15 @@ void loop()
         Serial.println("Red");
         lcd.setRGB(255, 0, 0); // Red color
     }
+
+    //--- Message Xbee ---//
+    String xbeeWrite = "";
+    xbeeWrite.concat(temp_cons_value);
+    xbeeWrite.concat(";");
+    xbeeWrite.concat(temperature_value);
+    xbeeWrite.concat(";");
+    
+    Serial1.println(xbeeWrite);
     
     delay(1000);
 }
